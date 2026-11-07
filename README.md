@@ -14,7 +14,13 @@
 - `KANGLE_DIR`：Kangle **安装目录**，例如 `/vhs/kangle`。
 - `KANGLE_SOURCE_DIR`：Kangle **源代码目录**。若源码位于 `kwaf` 同级的 `kangle` 目录，可省略该参数。
 
-## 编译和安装
+## Windows 编译
+
+先运行相邻 Kangle 项目的 `build-windows.ps1` 生成开发头文件。在 kwaf 工程目录运行 `.\build-windows.ps1`，默认生成 `build/Release/kwaf.dll`。
+
+脚本默认使用 Kangle 源码中 `deps/windows-x64` 的依赖和 Kangle 的 `build/install`。可通过 `-BuildDirectory`、`-DependencyRoot` 或 `-KangleDirectory` 指定对应目录。
+
+## Linux 编译和安装
 
 ```sh
 git clone https://github.com/netcccyun/kwaf.git
