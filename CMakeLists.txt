@@ -83,6 +83,14 @@ add_library(kwaf MODULE ${KWAF_SOURCE_FILES})
 set_target_properties(kwaf PROPERTIES PREFIX "" LINKER_LANGUAGE CXX)
 set_property(TARGET kwaf PROPERTY CXX_STANDARD 14)
 set_property(TARGET kwaf PROPERTY CXX_STANDARD_REQUIRED ON)
+if(MSVC)
+    # kangle 源码为 UTF-8 中文注释，MSVC 默认按本地代码页解析会报 C2447
+    target_compile_options(kwaf PRIVATE /utf-8)
+    if(NOT ZLIB_LIBRARY)
+        # vcpkg 的静态 zlib 库名为 zs.lib，FindZLIB 默认不识别
+        find_library(ZLIB_LIBRARY NAMES zs zlibstatic zlib z)
+    endif()
+endif()
 find_package(ZLIB REQUIRED)
 target_include_directories(kwaf PRIVATE
     ${KANGLE_INCLUDE_DIRS})
